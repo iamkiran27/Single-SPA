@@ -1,0 +1,27 @@
+<single-spa-router>
+  <nav style="width: 90%; position: fixed; z-index: 999; top: 1">
+    <application name="@spa/container"></application>
+  </nav>
+
+  <div>
+    <route default>
+      <application name="@spa/home"></application>
+    </route>
+  </div>
+
+  <div>
+    <route path="/cart">
+      <application name="@spa/cart"></application>
+    </route>
+  </div>
+  <div>
+    <route path="/calender">
+      <application name="@spa/calender"></application>
+    </route>
+  </div>
+  <div>
+    <route path="/pdp/:id">
+      <application name="@spa/pdp"></application>
+    </route>
+  </div>
+</single-spa-router>
