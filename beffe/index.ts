@@ -1,12 +1,8 @@
 import { ApolloServer } from 'apollo-server';
-import ProductModule from './product';
-import CartModule from './cart';
 import CalenderModule from './calender';
 
 const server = new ApolloServer({
-  modules: [ProductModule, 
-            CartModule,
-            CalenderModule],
+  modules: [CalenderModule],
   formatError: (err) => {
     return new Error(err.message);
   },
