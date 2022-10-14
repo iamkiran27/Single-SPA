@@ -7,7 +7,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import TransitionsModal from "./components/TransitionsModal";
 import EditModal from "./components/EditModel";
-import { useQuery } from 'urql';
+import { useQuery, gql } from "@apollo/client";
 import "./calender.css";
 // const events1 = [
 //   {
@@ -24,24 +24,24 @@ import "./calender.css";
 //   },
 // ];
 
-// const FILMS_QUERY=(userID) => `
-//   {
-//     CalenderEvent(userID: ${userID}) {
-//       id
-//       title
-//       start
-//       end
-//     }
-//   }
-// `;
-
 const Calender = () => {
   const [events, setevents] = useState([]);
-  const [userid, setuserid] = useState('user1');
+  const [userid, setuserid] = useState("user1");
   const [iseditEvent, setiseditEvent] = useState(false);
   const [currentEvent, setcurrentEvent] = useState({});
   const [isEventModal, setisEventModal] = useState(false);
   const [eventId, seteventId] = useState();
+  const { error, loading, data } = useQuery(gql`
+  query {
+  CalenderEvent(userID: "user1") {
+    id
+    title
+    start
+    end
+  }
+}
+`);
+
   useEffect(() => {
     axios
       .get(`http://localhost:8080/events?userID=${userid}`)
@@ -50,12 +50,8 @@ const Calender = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+  console.log(data)
 
-  // const [result] = useQuery({
-  //   query: FILMS_QUERY(userid),
-  // });
-  // const { data, fetching, error } = result;
-  // console.log(data)
   const [isModelOpen, setisModelOpen] = useState(false);
   const [date, setdate] = useState("date");
 
