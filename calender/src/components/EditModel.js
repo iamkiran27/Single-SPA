@@ -34,6 +34,7 @@ export default function EditModal({
   setevents,
   currentEvent,
   iseditEvent,
+  userID,
   setiseditEvent,
   seteventId,
 }) {
@@ -85,11 +86,12 @@ export default function EditModal({
     var curdate = currentEvent.start.split("T")[0];
     // console.log("Start time : ", sttime);
     // console.log("End time : ", edtime);
-    console.log(currentEvent.start);
+    console.log(userID);
 
     const updatedevent = {
       id: eveid,
       title: eventName,
+      userID:userID,
       start: `${curdate}T${sttime}`,
       end: `${curdate}T${edtime}`,
     };
