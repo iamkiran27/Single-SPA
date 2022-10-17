@@ -87,16 +87,15 @@
       "productID": "3",
       "quantity": 3,
       "id": 1
+    },
+    {
+      "userID": "user1",
+      "productID": "1",
+      "quantity": 2,
+      "id": 2
     }
   ],
   "events": [
-    {
-      "id": 1665727198484,
-      "title": "Team lunch",
-      "userID": "user1",
-      "start": "2022-10-06T12:29:44",
-      "end": "2022-10-06T12:55:44"
-    },
     {
       "id": 1665727236705,
       "title": "Team demo",
@@ -110,6 +109,13 @@
       "userID": "user2",
       "start": "2022-10-14T17:04:00",
       "end": "2022-10-14T21:46:00"
+    },
+    {
+      "userID": "user1",
+      "title": "Dry Run Meeting",
+      "start": "2022-10-17T16:30:00",
+      "end": "2022-10-17T17:00:00",
+      "id": 1665727309660
     }
   ]
 }
