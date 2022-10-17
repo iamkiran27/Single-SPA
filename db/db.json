@@ -84,15 +84,9 @@
   "cart": [
     {
       "userID": "user1",
-      "productID": "2",
-      "quantity": 2,
+      "productID": "3",
+      "quantity": 3,
       "id": 1
-    },
-    {
-      "userID": "user1",
-      "productID": "5",
-      "quantity": 1,
-      "id": 2
     }
   ],
   "events": [
