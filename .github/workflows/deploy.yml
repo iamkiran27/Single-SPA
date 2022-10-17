@@ -9,7 +9,7 @@ env:
   DEPLOYMENT_NAME: Frontend-micro-services
   IMAGE: Frontend-micro-services
 
-jobs:`
+jobs:
   Build:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
