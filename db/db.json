@@ -1,0 +1,121 @@
+{
+    "products": [
+      {
+        "id": 1,
+        "name": "Redmi 10 prime",
+        "imageUrl": "https://i02.appmifile.com/828_operator_sg/03/09/2021/a4be078485f54fdc6c448d42244588c6.png",
+        "price": 11000,
+        "rating": 4.2,
+        "description": "Xiaomi 12 Pro 5G feature a screen of up to 6.73 inches, its screen uses WQHD+ AMOLED panels with resolution (1440 x 3200Pixels) to provide vivid visibility, sharp details that are suitable for reading newspapers, entertainment or gaming. It is equipped with Octa-core Qualcomm SM8450 Snapdragon 8 Gen 1 (4 nm) processor that lets you enjoy a faster and lag-free performance. Xiaomi 12 Pro 5G comes with various memory variations, up to 256GB and 12GB RAM (Please check specification table)."
+      },
+      {
+        "id": 2,
+        "name": "Samsung Galaxy M51",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-m51-3.jpg",
+        "price": 30000,
+        "rating": 4.4,
+        "description": "The Samsung Galaxy M51 is a mid-range Android smartphone manufactured by Samsung Electronics as part of their M series. It was announced in late August 2020 and released the following month. The phone has a 6.7 in sAMOLED Plus display, a 64 MP quad-camera setup, and a 7000 mAh battery. It is primarily derived from the Samsung Galaxy A71 in terms of design and specifications."
+      },
+      {
+        "id": 3,
+        "name": "iPhone 11",
+        "imageUrl": "https://static.toiimg.com/thumb/resizemode-4,msid-71184243,imgsize-200,width-1200/71184243.jpg",
+        "price": 39000,
+        "rating": 4.5,
+        "description": "The iPhone 11 is a smartphone designed, developed, and marketed by Apple Inc. It is the 13th generation of iPhone, succeeding the iPhone XR, and was unveiled on September 10, 2019 alongside the iPhone 11 Pro at the Steve Jobs Theater in Apple Park, Cupertino, by Apple CEO Tim Cook. Preorders began on September 13, 2019, and the phone was officially released on September 20, 2019, one day after the official public release of iOS 13."
+      },
+      {
+        "id": 4,
+        "name": "Oneplus 10 pro",
+        "imageUrl": "https://m.media-amazon.com/images/I/618hqM-yxtL._SL1500_.jpg",
+        "price": 50000,
+        "rating": 4,
+        "description": "The OnePlus 10 Pro 256GB Black is a device with Android, that has a screen with a 3216x1440 pixel resolution. The phone contains 256000 MB storage space and has a 12288 MB working memory. The back contains a good-quality camera that allows you to take great pictures. The OnePlus 10 Pro 256GB Black is compatible with 5G. The phone is also capable of connecting to Bluetooth version 5.2. Manufacturer OnePlus has released the OnePlus 10 Pro in the colour Black."
+      },
+      {
+        "id": 5,
+        "name": "Oneplus Nord 2",
+        "imageUrl": "https://m.media-amazon.com/images/I/61TnX0PmqES._SX679_.jpg",
+        "price": 42000,
+        "rating": 3.9,
+        "description": "Like its predecessor, the Nord 2 5G has a plastic frame with a metallic finish and Gorilla Glass 5 protecting the screen and back panel. The power button and mute switch are located on the right side, while the volume key is located on the left side. The top has a secondary microphone, and the bottom has the primary microphone, USB-C port, loudspeaker, and dual-SIM card slot. The rear camera array is in the top corner, housing three sensors, and the dual-LED flash."
+      },
+      {
+        "id": 6,
+        "name": "Motorola Edge 30 Ultra 5G",
+        "imageUrl": "https://motorolain.vtexassets.com/arquivos/ids/156984/motorola-edge30-pro-pdp-render-Cosmos-3-we9qp5nm.png?v=637813082701800000",
+        "price": 60000,
+        "rating": 4.1,
+        "description": "Motorola Edge 30 Ultra 5G is an exceptional choice built with a suite of high-end specifications for you to binge-watch multiple movies, capture sceneries as they are and load in important documents & media files without much of a hassle. For safety purposes, an on-screen fingerprint sensor gets incorporated within."
+      },
+      {
+        "id": 7,
+        "name": "LG Velvet",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/pics/lg/lg-velvet-1.jpg",
+        "price": 85000,
+        "rating": 4,
+        "description": "A newly re-introduced smartphone by the device-maker, LG Velvet is a much-updated offering than its previous generations. Expected to be a premium range smartphone, this flagship model might be the come back by LG. Belonging to a premium-range, the Velvet fulfils every anticipation by covering a moderate spec-sheet ranging from a vibrant display to impressive camera set-up and strong hardware configuration. Lastly, to pair it all up, it gets a vast battery capacity is vast with quick-charging technology."
+      },
+      {
+        "id": 8,
+        "name": "iQOO 9T 5G",
+        "imageUrl": "https://m.media-amazon.com/images/I/61lWkGr0RiL._SX679_.jpg",
+        "price": 55000,
+        "rating": 3.8,
+        "description": "iQOO 9T 5G 256GB has a colour-enriched display with a high refresh rate and a premium set of configurations that will give the best-animated experience for games and movies. The powerful battery of the device is built with an array electrode structure and dual half-voltage charging chips that increase its charging power. Finally, talking about its optics department, it has a GN5`s Dual Pixel Pro Technology that highly improves autofocus feature."
+      },
+      {
+        "id": 9,
+        "name": "Asus ROG Phone 5s 5G ",
+        "imageUrl": "https://dlcdnwebimgs.asus.com/gain/3C7AF950-F88D-40D8-93FE-B49C4F26EAA2",
+        "price": 55000,
+        "rating": 4.2,
+        "description": "Asus ROG 5S comes with a 6.78 inches AMOLED display with an 82% screen-to-body ratio. The screen resolution of this phone is 1080 x 2448 pixels that gives you an immersive viewing experience while watching movies and playing games. The phone can be protected from scratches as it has Gorilla Glass Victus protection on the display and Gorilla Glass 3 on the back. Asus ROG 5S runs on with Android 11 and ROG UI."
+      },
+      {
+        "id": 10,
+        "imageUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s22-ultra-5g-2.jpg",
+        "name": "Samsung Galaxy S22 Ultra",
+        "price": 100999,
+        "rating": 4.5,
+        "description": "The pro-grade camera of the Samsung Galaxy S22 Ultra 1TB is designed to click the most amazing pictures at night. It is a powerful premium-level device that supports smooth multitasking and a pro-level gaming experience over a crystal clear display. You will also get to experience a massive battery backed by a vast amount of storage."
+      }
+    ],
+    "cart": [
+      {
+        "userID": "user1",
+        "productID": "3",
+        "quantity": 3,
+        "id": 1
+      },
+      {
+        "userID": "user1",
+        "productID": "1",
+        "quantity": 2,
+        "id": 2
+      }
+    ],
+    "events": [
+      {
+        "id": 1665727236705,
+        "title": "Team demo",
+        "userID": "user1",
+        "start": "2022-10-17T18:01:56",
+        "end": "2022-10-17T06:51:56"
+      },
+      {
+        "id": 1665727309659,
+        "title": "Diwali sale",
+        "userID": "user2",
+        "start": "2022-10-14T17:04:00",
+        "end": "2022-10-14T21:46:00"
+      },
+      {
+        "userID": "user1",
+        "title": "Dry Run Meeting",
+        "start": "2022-10-17T16:30:00",
+        "end": "2022-10-17T17:00:00",
+        "id": 1665727309660
+      }
+    ]
+  }

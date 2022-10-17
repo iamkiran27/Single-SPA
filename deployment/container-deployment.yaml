@@ -23,7 +23,7 @@ spec:
           ports:
             - containerPort: 9001
       imagePullSecrets: 
-        - name: mysecret
+        - name: gcr-srecret
 
 ---
 apiVersion: v1
