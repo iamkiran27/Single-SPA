@@ -11,6 +11,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import CloseIcon from "@mui/icons-material/Close";
+import { useQuery, gql,useMutation } from "@apollo/client";
 
 const style = {
   position: "absolute",
@@ -23,6 +24,12 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const ADD_EVENT = gql`
+ mutation CreateCalenderEvent($createCalenderEventRequest2: CreateCalenderEventRequest!) {
+  CreateCalenderEvent(request: $createCalenderEventRequest2)
+}
+`; 
 
 export default function BasicModal({
   isModelOpen,
@@ -39,6 +46,10 @@ export default function BasicModal({
     setisModelOpen(false);
     // setisAddOpen(false);
   };
+
+  const [addNewEvent, addnewevent] = useMutation(ADD_EVENT);
+
+
   var today = new Date();
   var currenttime =
     today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -73,7 +84,7 @@ export default function BasicModal({
     console.log("End time : ", edtime);
 
     const newevent = {
-      id: Date.now(),
+      // id: Date.now(),
       title: eventName,
       userID:userid,
       start: `${date}T${sttime}`,
@@ -82,12 +93,18 @@ export default function BasicModal({
 
     console.log("Event  : ", newevent);
 
-    axios.post(`http://localhost:8080/events`, newevent);
+    // axios.post(`http://localhost:8080/events`, newevent);
+    addNewEvent({
+      variables: {
+        "createCalenderEventRequest2": newevent,
+      },
+    })
     setevents([...events, newevent]);
     setstartTime(target);
     setendTime(target);
     seteventName();
     handleClose();
+    window.location.reload();
   };
   return (
     <div>

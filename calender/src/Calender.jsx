@@ -31,7 +31,9 @@ const Calender = () => {
   const [currentEvent, setcurrentEvent] = useState({});
   const [isEventModal, setisEventModal] = useState(false);
   const [eventId, seteventId] = useState();
-  const { error, loading, data } = useQuery(gql`
+  
+
+const { error, loading, data } = useQuery(gql`
   query {
   CalenderEvent(userID: "user1") {
     id
@@ -42,15 +44,20 @@ const Calender = () => {
 }
 `);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8080/events?userID=${userid}`)
-      .then((res) => {
-        setevents(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-  console.log(data)
+if (data) {
+  console.log("Events are ", data.CalenderEvent);
+  // setevents(data.CalenderEvent);
+}
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://localhost:8080/events?userID=${userid}`)
+  //     .then((res) => {
+  //       setevents(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
+  // console.log(data)
 
   const [isModelOpen, setisModelOpen] = useState(false);
   const [date, setdate] = useState("date");
@@ -78,7 +85,7 @@ const Calender = () => {
 
   return (
     <div className="App">
-      {!iseditEvent && (
+      {!iseditEvent&&data && (
         <TransitionsModal
           isModelOpen={isModelOpen}
           setisModelOpen={setisModelOpen}
@@ -105,7 +112,7 @@ const Calender = () => {
         userID={userid}
       />
       <Box sx={{ marginTop: "70px" }}>
-        <FullCalendar
+        {data&&<FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -117,12 +124,12 @@ const Calender = () => {
               click: () => console.log("new event"),
             },
           }}
-          events={events}
+          events={data.CalenderEvent}
           eventColor="#f20a7e"
           nowIndicator
           dateClick={dateClick}
           eventClick={eventClick}
-        />
+        />}
       </Box>
     </div>
   );
