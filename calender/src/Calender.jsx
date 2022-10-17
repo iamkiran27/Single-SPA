@@ -31,7 +31,7 @@ const Calender = () => {
   const [eventId, seteventId] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:8080/events")
+      .get("http://34.123.211.211:8080/events")
       .then((res) => {
         setevents(res.data);
       })
@@ -54,7 +54,7 @@ const Calender = () => {
     setiseditEvent(true);
 
     axios
-      .get(`http://localhost:8080/events/${e.event.id}`)
+      .get(`http://34.123.211.211:8080/events/${e.event.id}`)
       .then((res) => {
         setcurrentEvent({ ...res.data });
         console.log("Current event is : ", res.data);

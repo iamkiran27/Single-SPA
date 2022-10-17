@@ -94,7 +94,7 @@ export default function EditModal({
       end: `${curdate}T${edtime}`,
     };
 
-    axios.put(`http://localhost:8080/events/${eveid}`, updatedevent);
+    axios.put(`http://34.123.211.211:8080/events/${eveid}`, updatedevent);
     var updatedEvents = events.map((event_i) => {
       if (event_i.id != eveid) return event_i;
       else return updatedevent;
@@ -108,7 +108,7 @@ export default function EditModal({
 
   const deleteEvent = () => {
     const eveid = currentEvent.id;
-    axios.delete(`http://localhost:8080/events/${eveid}`);
+    axios.delete(`http://34.123.211.211:8080/events/${eveid}`);
     // var updatedEvents = events.map((event_i) => {
     //   if (event_i.id != eveid) return event_i;
     // });

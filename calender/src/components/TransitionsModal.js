@@ -80,7 +80,7 @@ export default function BasicModal({
 
     console.log("Event  : ", newevent);
 
-    axios.post(`http://localhost:8080/events`, newevent);
+    axios.post(`http://34.123.211.211:8080/events`, newevent);
     setevents([...events, newevent]);
     setstartTime(target);
     setendTime(target);

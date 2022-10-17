@@ -72,7 +72,7 @@ const Cart = () => {
 
   // useEffect(() => {
   //   Object.keys(cartItems).map(async (key) => {
-  //     const it = (await axios.get(`http://localhost:8080/products/${key}`))
+  //     const it = (await axios.get(`http://34.123.211.211:8080/products/${key}`))
   //       .data;
   //     setProducts((prev) => [...prev, { ...it }]);
   //     setQty((prev) => ({ ...prev, [key]: cartItems[key] }));
@@ -177,7 +177,7 @@ const Cart = () => {
                             }}
                             // onClick={() => {
                             //   axios.put(
-                            //     `http://localhost:8080/cart/${value.id}`,
+                            //     `http://34.123.211.211:8080/cart/${value.id}`,
                             //     {
                             //       id: qty[value.id],
                             //       quantity: qty[value.id] - 1,
@@ -204,7 +204,7 @@ const Cart = () => {
                           <Button
                             // onClick={() => {
                             //   axios.put(
-                            //     `http://localhost:8080/cart/${value.id}`,
+                            //     `http://34.123.211.211:8080/cart/${value.id}`,
                             //     {
                             //       id: qty[value.id],
                             //       quantity: qty[value.id] + 1,
