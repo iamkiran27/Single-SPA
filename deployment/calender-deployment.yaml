@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-calender-service
-          image: ghcr.io/sreenidhize/calender:v2
+          image: gcr.io/deploy-project-id-1/calender:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9006

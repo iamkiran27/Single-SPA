@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-cart-service
-          image: ghcr.io/sreenidhize/cart:v1
+          image: gcr.io/deploy-project-id-1/cart:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9004
