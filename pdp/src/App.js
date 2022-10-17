@@ -93,7 +93,8 @@ function App() {
             quantity: 1,
           },
         },
-      }).then(res => window.location.reload())
+      }).then(res => {
+         window.location.reload()})
     }
   };
   // const addToCart = async () => {
