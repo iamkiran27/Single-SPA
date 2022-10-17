@@ -39,7 +39,7 @@ jobs:
          
     - name: Publish
       run: |-
-        docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}latest"
+        docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest"
 
   deploy:
     name: deploy to gke
