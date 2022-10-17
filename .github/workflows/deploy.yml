@@ -3,7 +3,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - deployment
+      - micro-app-deployment
 
 env:
   DEPLOYMENT_NAME: Frontend-micro-services
