@@ -13,6 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import CloseIcon from "@mui/icons-material/Close";
+import { useQuery, gql,useMutation } from "@apollo/client";
 
 const style = {
   position: "absolute",
@@ -26,6 +27,17 @@ const style = {
   p: 4,
 };
 
+const EDIT_EVENT = gql`
+ mutation UpdateCalenderEvent($request: UpdateCalenderEventRequest!) {
+  UpdateCalenderEvent(request: $request)
+}
+`; 
+const DELETE_EVENT = gql`
+  mutation DeleteCalenderEvent($eventId: ID!) {
+  DeleteCalenderEvent(eventID: $eventId)
+}
+`;
+
 export default function EditModal({
   isEventModal,
   setisEventModal,
@@ -34,6 +46,7 @@ export default function EditModal({
   setevents,
   currentEvent,
   iseditEvent,
+  userID,
   setiseditEvent,
   seteventId,
 }) {
@@ -57,6 +70,9 @@ export default function EditModal({
   const [eventName, seteventName] = React.useState(currentEvent.title);
   const [startTime, setstartTime] = React.useState(dayjs(currentEvent.start));
   const [endTime, setendTime] = React.useState(dayjs(currentEvent.end));
+  const [editNewEvent, editnewevent] = useMutation(EDIT_EVENT);
+  const [deleteSelectedEvent, res] = useMutation(DELETE_EVENT);
+
   useEffect(() => {
     seteventName(currentEvent.title);
     setstartTime(currentEvent.start);
@@ -85,16 +101,27 @@ export default function EditModal({
     var curdate = currentEvent.start.split("T")[0];
     // console.log("Start time : ", sttime);
     // console.log("End time : ", edtime);
-    console.log(currentEvent.start);
+    console.log(userID);
 
     const updatedevent = {
       id: eveid,
       title: eventName,
+      userID:userID,
       start: `${curdate}T${sttime}`,
       end: `${curdate}T${edtime}`,
     };
 
-    axios.put(`http://localhost:8080/events/${eveid}`, updatedevent);
+    // axios.put(`http://localhost:8080/events/${eveid}`, updatedevent);
+    editNewEvent({
+      variables: {
+        "request": {
+          "eventID": `${eveid}`,
+          "title": `${eventName}`,
+          "start": `${updatedevent.start}`,
+          "end": `${updatedevent.end}`
+        }
+      },
+    })
     var updatedEvents = events.map((event_i) => {
       if (event_i.id != eveid) return event_i;
       else return updatedevent;
@@ -104,17 +131,24 @@ export default function EditModal({
     // setendTime(target);
     // seteventName();
     handleClose();
+    window.location.reload();
   };
 
   const deleteEvent = () => {
     const eveid = currentEvent.id;
-    axios.delete(`http://localhost:8080/events/${eveid}`);
+    // axios.delete(`http://localhost:8080/events/${eveid}`);
+    deleteSelectedEvent({
+      variables: {
+        "eventId": `${eveid}`
+      },
+    }).then((res) => window.location.reload());
     // var updatedEvents = events.map((event_i) => {
     //   if (event_i.id != eveid) return event_i;
     // });
     var updatedEvents = events.filter((event) => event.id != eveid);
     setevents([...updatedEvents]);
     handleClose();
+    window.location.reload();
   };
   return (
     <div>
