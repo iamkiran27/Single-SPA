@@ -23,8 +23,8 @@ spec:
           ports:
             - containerPort: 4000
           env:
-          - name:
-            value: 
+          - name: DB_URL
+            value: http://34.123.211.211:8080
       imagePullSecrets: 
         - name: mysecret
 
