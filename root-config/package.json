@@ -8,7 +8,7 @@
     "check-format": "prettier --check .",
     "build": "concurrently npm:build:*",
     "build:webpack": "webpack --mode=production",
-    "db": "json-server --watch ../db/db.json --port 8080"
+    "db" : "json-server --watch ../db/db.json --port 8080"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
