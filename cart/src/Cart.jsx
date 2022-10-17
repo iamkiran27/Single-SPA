@@ -53,13 +53,12 @@ const Cart = () => {
   console.log("Cart data is ", data);
   let sum = 0;
 
-
   if (data) {
     console.log("Cart data is ", data.CartItems);
 
     data.CartItems.map((value) => {
-      sum += value.quantity * value.product.price 
-    })
+      sum += value.quantity * value.product.price;
+    });
   }
 
   console.log("Sum  is : ", sum);
@@ -159,14 +158,22 @@ const Cart = () => {
                           QTY:
                           <Button
                             onClick={() => {
-                              mutateFunction({
-                                variables: {
-                                  request: {
-                                    cartItemID: value.id,
-                                    quantity: value.quantity - 1,
+                              if (value.quantity - 1 == 0) {
+                                deleteFromCart({
+                                  variables: {
+                                    id: value.id,
                                   },
-                                },
-                              }).then((res) => window.location.reload());
+                                }).then((res) => window.location.reload());
+                              } else {
+                                mutateFunction({
+                                  variables: {
+                                    request: {
+                                      cartItemID: value.id,
+                                      quantity: value.quantity - 1,
+                                    },
+                                  },
+                                }).then((res) => window.location.reload());
+                              }
                             }}
                             // onClick={() => {
                             //   axios.put(
@@ -241,7 +248,7 @@ const Cart = () => {
                     onClick={() => {
                       deleteFromCart({
                         variables: {
-                        id :value.id
+                          id: value.id,
                         },
                       }).then((res) => window.location.reload());
                     }}

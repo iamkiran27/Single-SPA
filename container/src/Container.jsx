@@ -8,14 +8,50 @@ import { Observable } from "windowed-observable";
 import { navigateToUrl } from "single-spa";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import { useQuery, gql, useMutation } from "@apollo/client";
+
+
+
+const GET_CART_ITEMS = gql`
+  query ($userID: String!) {
+    CartItems(userID: $userID) {
+      id
+      quantity
+      product {
+        id
+        name
+        description
+        imageUrl
+        price
+        rating
+      }
+    }
+  }
+`;
 const Container = () => {
-  const [notification, setNotification] = useState(
-    localStorage.getItem("cart") == null
-      ? 0
-      : Object.keys(JSON.parse(localStorage.getItem("cart"))).length
-  );
-  const observable = new Observable("cart");
-  observable.subscribe((value) => setNotification(value), { latest: true });
+  const { loading, error, data } = useQuery(GET_CART_ITEMS, {
+    variables: { userID: "user1" },
+  });
+
+  let badge_data = 0;
+
+
+  if(data)
+  {
+    console.log("data is ", data.CartItems.length);
+    badge_data = data.CartItems.length;
+
+  }
+
+  console.log("Badge data : ", badge_data);
+
+  // const [notification, setNotification] = useState(
+  //   localStorage.getItem("cart") == null
+  //     ? 0
+  //     : Object.keys(JSON.parse(localStorage.getItem("cart"))).length
+  // );
+  // const observable = new Observable("cart");
+  // observable.subscribe((value) => setNotification(value), { latest: true });
 
   const [location, setLocation] = useState(window.location.pathname);
   console.log(location);
@@ -65,7 +101,7 @@ const Container = () => {
             <CalendarTodayIcon sx={{ color: "white" }} />
           </a>
 
-          <Badge badgeContent={notification} color="primary">
+          <Badge badgeContent={badge_data} color="primary">
             <a
               href={`/cart`}
               onClick={navigateToUrl}
