@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-beffe-service
+  labels:
+    app: singlespa-beffe
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-beffe
+    
+  template:
+    metadata:
+      name: singlespa-beffe
+      labels:
+        app: singlespa-beffe
+    spec:
+      containers:
+        - name: singlespa-beffe-service
+          image: ghcr.io/sreenidhize/beffe:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          env:
+          - name:
+            value: 
+      imagePullSecrets: 
+        - name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-beffe-service
+  labels:
+    app: singlespa-beffe
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 4000
+      protocol: TCP
+  selector:
+    app: singlespa-beffe

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-calender-service
+  labels:
+    app: singlespa-calender
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-calender
+    
+  template:
+    metadata:
+      name: singlespa-calender
+      labels:
+        app: singlespa-calender
+    spec:
+      containers:
+        - name: singlespa-calender-service
+          image: ghcr.io/sreenidhize/calender:v2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9006
+      imagePullSecrets: 
+        - name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-calender-service
+  labels:
+    app: singlespa-calender
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9006
+      protocol: TCP
+  selector:
+    app: singlespa-calender

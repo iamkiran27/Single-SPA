@@ -60,4 +60,5 @@ jobs:
     - name: Deploy
       run: |-
         cd deployment
-        kubectl get pods
+        kubectl apply -f .
+        kubectl get pods,svc

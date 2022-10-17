@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-cart-service
+  labels:
+    app: singlespa-cart
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-cart
+    
+  template:
+    metadata:
+      name: singlespa-cart
+      labels:
+        app: singlespa-cart
+    spec:
+      containers:
+        - name: singlespa-cart-service
+          image: ghcr.io/sreenidhize/cart:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9004
+      imagePullSecrets: 
+        - name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-cart-service
+  labels:
+    app: singlespa-cart
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9004
+      protocol: TCP
+  selector:
+    app: singlespa-cart
