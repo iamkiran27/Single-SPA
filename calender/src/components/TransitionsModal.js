@@ -30,7 +30,6 @@ export default function BasicModal({
   setisAddOpen,
   date,
   eventid,
-  userid,
   events,
   setevents,
 }) {
@@ -75,7 +74,6 @@ export default function BasicModal({
     const newevent = {
       id: Date.now(),
       title: eventName,
-      userID:userid,
       start: `${date}T${sttime}`,
       end: `${date}T${edtime}`,
     };
