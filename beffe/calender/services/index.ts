@@ -10,7 +10,10 @@ export const getCalenderEvent = (userID: string): Promise<any> => {
         .then(res => {
             resolve(res.data)
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+            console.log(err)
+            reject(err)
+        });
     })
 
 }
