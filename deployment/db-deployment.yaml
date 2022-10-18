@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: singlespa-json
-          image: gcr.io/deploy-project-id-1/db:latest
+          image: ghcr.io/sreenidhize/single-spa-json:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
       imagePullSecrets: 
-        - name: gcr-srecret
+        - name: mysecret
 
 ---
 apiVersion: v1

@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: singlespa-calender-service
-          image: gcr.io/deploy-project-id-1/calender:latest
+          image: ghcr.io/sreenidhize/calender:v2
           imagePullPolicy: Always
           ports:
             - containerPort: 9006
       imagePullSecrets: 
-        - name: gcr-srecret
+        - name: mysecret
 
 ---
 apiVersion: v1
