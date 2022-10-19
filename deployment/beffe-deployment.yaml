@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-beffe-service
-          image: gcr.io/deploy-project-id-1/beffe:latest
+          image: gcr.io/deploy-project-id-1/beffe:tagversion
           imagePullPolicy: Always
           ports:
             - containerPort: 4000

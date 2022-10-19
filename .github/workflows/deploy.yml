@@ -1,62 +1,61 @@
-name: Build and Deploy to GKE
+# name: Build and Deploy to GKE
 
-on:
-  push:
-    branches:
-      - micro-app-deployment
+# on:
+#   push:
+#     branches:
+#       - micro-app-deployment
 
-jobs:
-  # Build:
-  #   name: Build, Publish
-  #   runs-on: ubuntu-latest
+# jobs:
+#   # Build:
+#   #   name: Build, Publish
+#   #   runs-on: ubuntu-latest
 
-  #   strategy:
-  #     matrix:
-  #       service: [calender, cart, container, db, home, pdp, root-config, beffe]
+#   #   strategy:
+#   #     matrix:
+#   #       service: [calender, cart, container, db, home, pdp, root-config, beffe]
 
-  #   defaults:
-  #     run:
-  #       working-directory: ${{ matrix.service }}
+#   #   defaults:
+#   #     run:
+#   #       working-directory: ${{ matrix.service }}
 
-  #   environment: production
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v3
+#   #   environment: production
+#   #   steps:
+#   #   - name: Checkout
+#   #     uses: actions/checkout@v3
 
-  #   - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
-  #     with:
-  #       service_account_key: ${{ secrets.GKE_SA_KEY }}
-  #       project_id: ${{ secrets.GKE_PROJECT }}
-  #   - run: |-
-  #       gcloud --quiet auth configure-docker
-  #   - name: Build
-  #     run: |-
-  #       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest .
+#   #   - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+#   #     with:
+#   #       service_account_key: ${{ secrets.GKE_SA_KEY }}
+#   #       project_id: ${{ secrets.GKE_PROJECT }}
+#   #   - run: |-
+#   #       gcloud --quiet auth configure-docker
+#   #   - name: Build
+#   #     run: |-
+#   #       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest .
          
-  #   - name: Publish
-  #     run: |-
-  #       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest"
+#   #   - name: Publish
+#   #     run: |-
+#   #       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest"
 
-  deploy:
-    name: deploy to gke
-    runs-on: ubuntu-latest
+#   deploy:
+#     name: deploy to gke
+#     runs-on: ubuntu-latest
 
-    # needs: 
-    # - Build
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Login to cluster    
-      uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
-      with:
-        cluster_name: ${{ secrets.GKE_CLUSTER }}
-        location: ${{ secrets.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
+#     # needs: 
+#     # - Build
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v3
+#     - name: Login to cluster    
+#       uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+#       with:
+#         cluster_name: ${{ secrets.GKE_CLUSTER }}
+#         location: ${{ secrets.GKE_ZONE }}
+#         credentials: ${{ secrets.GKE_SA_KEY }}
 
-    - name: Deploy
-      run: |-
-        ls -la
-        pwd 
-        cd deployment
-        ls
+#     - name: Deploy
+#       run: |-
+#         cd deployment
+#         kubectl apply -f .
+        
         
