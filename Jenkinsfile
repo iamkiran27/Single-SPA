@@ -4,7 +4,7 @@ pipeline {
 		DOCKERHUB_CREDENTIALS=credentials('f47bca7e-ea1c-4370-bcd5-a378d108b47a')
         PROJECT_ID = 'deploy-project-id-1'
         CLUSTER_NAME = 'demo-cluster'
-        LOCATION = 'us-central1-a	'
+        LOCATION = 'us-central1-a'
         CREDENTIALS_ID = 'gke'
 
 
