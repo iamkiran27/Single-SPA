@@ -22,7 +22,6 @@ pipeline {
             sh "docker push ghcr.io/sreenidhize/beffe:${env.BUILD_ID}"
                 }
             }
-        }
 
         stage('Deploy to GKE') {
             steps{
@@ -30,4 +29,5 @@ pipeline {
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
+   }
 }
