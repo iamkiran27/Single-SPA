@@ -22,27 +22,27 @@ pipeline {
             sh "docker push ghcr.io/sreenidhize/beffe:${env.BUILD_ID}"
                 }
             }
-        // stage("Checkout code") {
-        //     steps {
-        //         checkout scm
-        //     }
-        // }
-        // stage('Deploy to GKE') {
-        //     steps{
-        //         // sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
-        //         // step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-        //            sh 'kubectl get pods'  
-        //     }
-        // }
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Deploy to GKE') {
+            steps{
+                sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                   sh 'kubectl get pods'  
+            }
+        }
 
-     node {
-        stage('List pods') {
-           withKubeConfig([credentialsId: 'gke']) {
-              sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
-              sh 'chmod u+x ./kubectl'  
-              sh './kubectl get pods'
-    }
-  }
-}
+//         {
+//         stage('List pods') {
+//            withKubeConfig([credentialsId: 'gke']) {
+//               sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+//               sh 'chmod u+x ./kubectl'  
+//               sh './kubectl get pods'
+//     }
+//   }
+// }
    }
 }
