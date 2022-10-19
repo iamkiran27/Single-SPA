@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-beffe-service
+  labels:
+    app: singlespa-beffe
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-beffe
+    
+  template:
+    metadata:
+      name: singlespa-beffe
+      labels:
+        app: singlespa-beffe
+    spec:
+      containers:
+        - name: singlespa-beffe-service
+          image: gcr.io/deploy-project-id-1/beffe:tagversion
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4000
+          env:
+          - name: DB_URL
+            value: http://34.123.211.211:8080
+      imagePullSecrets: 
+        - name: gcr-srecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-beffe-service
+  labels:
+    app: singlespa-beffe
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 4000
+      protocol: TCP
+  selector:
+    app: singlespa-beffe
