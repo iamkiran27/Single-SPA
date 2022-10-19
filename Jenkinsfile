@@ -1,11 +1,9 @@
 pipeline {
     agent any 	
 	environment {
-		
-		PROJECT_ID = 'deploy-project-id-1'
-                CLUSTER_NAME = 'demo-cluster'
-                LOCATION = 'us-central1-a'
-                CREDENTIALS_ID = 'kubernetes'		
+		DOCKERHUB_CREDENTIALS=credentials('f47bca7e-ea1c-4370-bcd5-a378d108b47a')
+
+
 }
     stages {
         stage("Checkout code") {
@@ -13,11 +11,11 @@ pipeline {
                 checkout scm
             }
         }
-        stage("Build image") {
-            steps {
-                script {
-                    sh "cd beffe"
-                    myapp = docker.build("gcr/deploy-project-id-1/hello:${env.BUILD_ID}")
+        stage('Docker Build') {
+          steps {
+            sh "cd beffe ; ls ; docker build -t ghcr.io/sreenidhize/beffe:latest ."
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login ghcr.io -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            sh "docker push ghcr.io/sreenidhize/beffe:latest"
                 }
             }
         }
@@ -29,4 +27,4 @@ pipeline {
         //         step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
         //     }
         // }
-    }    
+    // }    
