@@ -13,9 +13,9 @@ pipeline {
         }
         stage('Docker Build') {
           steps {
-            sh "cd beffe ; ls ; docker build -t ghcr.io/sreenidhize/beffe:latest ."
+            sh "cd beffe ; ls ; docker build -t ghcr.io/sreenidhize/beffe:${env.BUILD_ID} ."
             sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login ghcr.io -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            sh "docker push ghcr.io/sreenidhize/beffe:latest"
+            sh "docker push ghcr.io/sreenidhize/beffe:${env.BUILD_ID}"
                 }
             }
         }
