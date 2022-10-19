@@ -31,7 +31,6 @@ pipeline {
             steps{
                 sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-                sh 'kubectl get pods'  
             }
         }
 
