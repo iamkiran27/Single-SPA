@@ -22,11 +22,11 @@ pipeline {
             sh "docker push ghcr.io/sreenidhize/beffe:${env.BUILD_ID}"
                 }
             }
-        stage("Checkout code") {
-            steps {
-                checkout scm
-            }
-        }
+        // stage("Checkout code") {
+        //     steps {
+        //         checkout scm
+        //     }
+        // }
         stage('Deploy to GKE') {
             steps{
                 sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
