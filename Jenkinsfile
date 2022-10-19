@@ -28,9 +28,10 @@ pipeline {
         //     }
         // }
         stage('Deploy to GKE') {
-            steps{
-                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
-                sh "kubectl get pods"
+            withKubeConfig([credentialsId: 'gke']) {
+                 sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'  
+                 sh 'chmod u+x ./kubectl'  
+                 sh './kubectl get pods'
 
             }
         }
