@@ -29,7 +29,7 @@ pipeline {
         // }
         stage('Deploy to GKE') {
             steps{
-                sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' deployment.yaml"
+                sh "kubectl set image deployment/singlespa-beffe-service singlespa-beffe-service=ghcr.io/sreenidhize:${{env.BUILD_ID}}"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
