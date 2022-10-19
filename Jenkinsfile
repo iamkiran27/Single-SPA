@@ -22,10 +22,14 @@ pipeline {
             sh "docker push ghcr.io/sreenidhize/beffe:${env.BUILD_ID}"
                 }
             }
-
+        stage("Checkout code") {
+            steps {
+                checkout scm
+            }
+        }
         stage('Deploy to GKE') {
             steps{
-                sh "cd deployment ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
+                sh "cd deployment ; ls ; sed -i 's/beffe:tagversion/beffe:${env.BUILD_ID}/g' beffe-deployment.yaml"
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'beffe-deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
