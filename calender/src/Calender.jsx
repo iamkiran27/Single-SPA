@@ -69,6 +69,8 @@ const Calender = () => {
 useEffect(() => {
   const hashes = authClient.parseHash();
   console.log("hashes ;", hashes.access_token);
+  
+
   if(hashes.access_token == undefined && localStorage.getItem("userId"))
   {
     getCalenderEvents({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcalenderData(res.data)})
@@ -84,7 +86,8 @@ else if (hashes)
   console.log("Inside the hashes");
   authClient.getUserInfo(hashes.access_token).then((res) => {
       console.log("Res in calender : ", res);
-      localStorage.setItem("userId", res.email);  
+
+      localStorage.setItem("userId", res.preferred_username);  
 
     }).then(res => {
       getCalenderEvents({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcalenderData(res.data)})

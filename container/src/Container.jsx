@@ -8,10 +8,10 @@ import { Observable } from "windowed-observable";
 import { navigateToUrl } from "single-spa";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { useQuery, gql, useMutation , useLazyQuery} from "@apollo/client";
+import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 import authClient from "./sdk/api";
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
 
 const GET_CART_ITEMS = gql`
   query ($userID: String!) {
@@ -29,14 +29,14 @@ const GET_CART_ITEMS = gql`
     }
   }
 `;
-const settings = ['Log In', 'Log Out'];
 
 const Container = () => {
-  const [notification,{ loading, error, data } ]= useLazyQuery(GET_CART_ITEMS);
+  const [notification, { loading, error, data }] = useLazyQuery(GET_CART_ITEMS);
 
-  const [notificationData, setnotificationData] = useState()
+  const [notificationData, setnotificationData] = useState();
 
   // let badge_data = 0;
+  const settings = localStorage.getItem("userId") ? "Log Out" : "Log In";
 
   // if (data) {
   //   console.log("data is ", data.CartItems.length);
@@ -58,35 +58,55 @@ const Container = () => {
   };
   useEffect(() => {
     console.log("Inside the container");
-    if(localStorage.getItem("userId"))
-    {
-notification({variables : {userID :localStorage.getItem("userId") }}).then(res => {setnotificationData(res.data.CartItems.length)});
+    const hashes = authClient.parseHash();
+    
+    console.log("Hashes in containr : ", hashes);
+    if (hashes) {
+      console.log("Inside the hashes, container");
+      authClient
+        .getUserInfo(hashes.access_token)
+        .then((res) => {
+          console.log("Res in calender : ", res);
+          localStorage.setItem("userId", res.preferred_username);
+        })
+        .then((res) => {
+          notification({
+            variables: { userID: localStorage.getItem("userId") },
+          }).then((res) => {
+            setnotificationData(res.data.CartItems.length);
+          });
+        });
     }
-   }, []);
-    
-   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-   const handleOpenNavMenu = (event) => {
-     setAnchorElNav(event.currentTarget);
-   };
-   const handleOpenUserMenu = (event) => {
-     setAnchorElUser(event.currentTarget);
-   };
- 
-   
- 
-   const handleCloseUserMenu = (setting) => {
-     setAnchorElUser(null);
-     if(setting=='Log In'){
+    if (localStorage.getItem("userId")) {
+      notification({
+        variables: { userID: localStorage.getItem("userId") },
+      }).then((res) => {
+        setnotificationData(res.data.CartItems.length);
+      });
+    }
+  }, []);
+
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = (setting) => {
+    setAnchorElUser(null);
+    if (setting == "Log In") {
       handleSignIn();
-     }
-     else if(setting=='Log Out'){
-      console.log("Log out url")
-     }
-   };
-    
-   
-  
+    } else if (setting == "Log Out") {
+      console.log("Log out url");
+      localStorage.removeItem("userId");
+      window.location.replace("/")
+      setnotificationData();
+    }
+  };
 
   // const [notification, setNotification] = useState(
   //   localStorage.getItem("cart") == null
@@ -97,7 +117,6 @@ notification({variables : {userID :localStorage.getItem("userId") }}).then(res =
   // observable.subscribe((value) => setNotification(value), { latest: true });
 
   const [location, setLocation] = useState(window.location.pathname);
-  console.log(location);
 
   return (
     <Box
@@ -160,27 +179,28 @@ notification({variables : {userID :localStorage.getItem("userId") }}).then(res =
             A
           </Avatar>
           <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem
+              key={settings}
+              onClick={() => handleCloseUserMenu(settings)}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              <Typography textAlign="center">{settings}</Typography>
+            </MenuItem>
+          </Menu>
         </Box>
       </Box>
     </Box>

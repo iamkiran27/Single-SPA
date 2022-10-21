@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import authClient from "./sdk/api";
 
+
 import {
   Grid,
   Box,
@@ -90,7 +91,7 @@ else if (hashes)
   console.log("Inside the hashes");
   authClient.getUserInfo(hashes.access_token).then((res) => {
       console.log("Res in calender : ", res);
-      localStorage.setItem("userId", res.email);  
+      localStorage.setItem("userId", res.preferred_username      );  
 
     }).then(res => {
       getCartData({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcartData(res.data)})
