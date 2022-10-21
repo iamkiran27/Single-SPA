@@ -10,6 +10,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import { useQuery, gql, useMutation , useLazyQuery} from "@apollo/client";
 import authClient from "./sdk/api";
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 
 const GET_CART_ITEMS = gql`
   query ($userID: String!) {
@@ -27,6 +29,8 @@ const GET_CART_ITEMS = gql`
     }
   }
 `;
+const settings = ['Log In', 'Log Out'];
+
 const Container = () => {
   const [notification,{ loading, error, data } ]= useLazyQuery(GET_CART_ITEMS);
 
@@ -60,7 +64,26 @@ notification({variables : {userID :localStorage.getItem("userId") }}).then(res =
     }
    }, []);
     
+   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+   const handleOpenNavMenu = (event) => {
+     setAnchorElNav(event.currentTarget);
+   };
+   const handleOpenUserMenu = (event) => {
+     setAnchorElUser(event.currentTarget);
+   };
  
+   
+ 
+   const handleCloseUserMenu = (setting) => {
+     setAnchorElUser(null);
+     if(setting=='Log In'){
+      handleSignIn();
+     }
+     else if(setting=='Log Out'){
+      console.log("Log out url")
+     }
+   };
     
    
   
@@ -133,9 +156,31 @@ notification({variables : {userID :localStorage.getItem("userId") }}).then(res =
               <ShoppingCartIcon sx={{ color: "white" }} />
             </a>
           </Badge>
-          <Avatar onClick={handleSignIn} sx={{ bgcolor: "#03abab" }}>
+          <Avatar onClick={handleOpenUserMenu} sx={{ bgcolor: "#03abab" }}>
             A
           </Avatar>
+          <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={()=>handleCloseUserMenu(setting)}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
         </Box>
       </Box>
     </Box>
