@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import authClient from "./sdk/api";
+
 import {
   Grid,
   Box,
@@ -10,7 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { navigateToUrl } from "single-spa";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql, useMutation, useLazyQuery } from "@apollo/client";
 
 const UPDATRE_CART_ITEMS = gql`
   mutation ($request: UpdateCartItemRequest) {
@@ -42,82 +44,91 @@ const GET_CART_ITEMS = gql`
 `;
 
 const Cart = () => {
-  const { loading, error, data } = useQuery(GET_CART_ITEMS, {
-    variables: { userID: "user1" },
-  });
 
-  const [mutateFunction, response] = useMutation(UPDATRE_CART_ITEMS);
 
-  const [deleteFromCart, res] = useMutation(DELETE_FROM_CART);
+  const [cartData, setcartData] = useState();
 
+
+
+    const [getCartData ,  { loading, error, data }  ] = useLazyQuery(GET_CART_ITEMS);
+
+  
+    const [mutateFunction, response] = useMutation(UPDATRE_CART_ITEMS);
+  
+    const [deleteFromCart, res] = useMutation(DELETE_FROM_CART);
+  
+    const handleSignIn = () => {
+      // this.clearSession();
+  
+      let state = authClient.generateRandomValue();
+      let nonce = authClient.generateRandomValue();
+      // Store state and nonce parameters into the session, so we can retrieve them after
+      // user will be redirected back with access token or code (since react state is cleared in this case)
+      sessionStorage.setItem("state", state);
+      sessionStorage.setItem("nonce", nonce);
+  
+      authClient.authorize(state, nonce);
+    };
+
+
+useEffect(() => {
+
+  const hashes = authClient.parseHash();
+  console.log("hashes ;", hashes.access_token);
+  if(hashes.access_token == undefined && localStorage.getItem("userId"))
+  {
+    getCartData({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcartData(res.data)})
+
+  }
+  else if(hashes.access_token == undefined && !localStorage.getItem("userId")) {
+    handleSignIn()
+
+  }
+
+else if (hashes)
+{
+  console.log("Inside the hashes");
+  authClient.getUserInfo(hashes.access_token).then((res) => {
+      console.log("Res in calender : ", res);
+      localStorage.setItem("userId", res.email);  
+
+    }).then(res => {
+      getCartData({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcartData(res.data)})
+
+    })
+}
+ 
+
+ 
+}, [])
+
+let sum = 0;
+
+
+if(data) {
+  
   console.log("Cart data is ", data);
-  let sum = 0;
 
-  if (data) {
     console.log("Cart data is ", data.CartItems);
-
     data.CartItems.map((value) => {
       sum += value.quantity * value.product.price;
     });
   }
+  
 
   console.log("Sum  is : ", sum);
 
-  // const [products, setProducts] = useState([]);
-  // const [cartItems, setCartItems] = useState(
-  //   JSON.parse(localStorage.getItem("cart"))
-  // );
-  // const [sum, setSum] = useState(0);
-  // const [qty, setQty] = useState({});
+ 
+  if (loading) return 'Loading...';
 
-  // useEffect(() => {
-  //   Object.keys(cartItems).map(async (key) => {
-  //     const it = (await axios.get(`http://localhost:8080/products/${key}`))
-  //       .data;
-  //     setProducts((prev) => [...prev, { ...it }]);
-  //     setQty((prev) => ({ ...prev, [key]: cartItems[key] }));
-  //     if (!localStorage.getItem("price")) {
-  //       localStorage.setItem("price", JSON.stringify({ [key]: it.price }));
-  //     } else {
-  //       const pr = JSON.parse(localStorage.getItem("price"));
-  //       pr[key] = it.price;
-  //       localStorage.setItem("price", JSON.stringify(pr));
-  //     }
-  //     console.log("key: " + qty[key]);
-  //     console.log(it.price);
-  //   });
-  // }, []);
-  // useEffect(() => {
-  //   setSum(0);
-  //   const prices = JSON.parse(localStorage.getItem("price"));
-  //   Object.keys(qty).map((key) => {
-  //     setSum((prev) => prev + prices[key] * qty[key]);
-  //   });
-  // }, [qty]);
-  // const handle = () => {
-  //   setSum(0);
-  //   const prices = JSON.parse(localStorage.getItem("price"));
-  //   const items = JSON.parse(localStorage.getItem("cart"));
-  //   Object.keys(prices).map((key) => {
-  //     setSum((prev) => prev + prices[key] * items[key]);
-  //   });
-  // };
-  // const removeItem = (index) => {
-  //   const temp = cartItems;
-  //   delete temp[index];
-  //   setCartItems({ ...temp });
-  //   console.log(cartItems);
-  //   console.log(temp);
-  //   localStorage.setItem("cart", JSON.stringify(temp));
-  //   location.reload();
-  // };
+  if (error) return `Error! ${error.message}`;
 
   return (
     <Grid marginTop={6}>
-      {data && data.CartItems.length > 0 ? (
+      {cartData && cartData.CartItems.length > 0 ? (
         <>
           <Grid container>
-            {data.CartItems.map((value) => (
+            {cartData.CartItems.map((value) => (
               <>
                 <Grid key={value.id} item xs={10} marginY={3}>
                   <Grid container direction={"row"}>
@@ -175,56 +186,13 @@ const Cart = () => {
                                 }).then((res) => window.location.reload());
                               }
                             }}
-                            // onClick={() => {
-                            //   axios.put(
-                            //     `http://localhost:8080/cart/${value.id}`,
-                            //     {
-                            //       id: qty[value.id],
-                            //       quantity: qty[value.id] - 1,
-                            //     }
-                            //   );
-
-                            //   let temp = qty[value.id];
-                            //   temp -= 1;
-                            //   setQty((prev) => ({
-                            //     ...prev,
-                            //     [value.id]: temp > 0 ? temp : 0,
-                            //   }));
-                            //   const it = JSON.parse(
-                            //     localStorage.getItem("cart")
-                            //   );
-                            //   it[value.id] -= 1;
-                            //   localStorage.setItem("cart", JSON.stringify(it));
-                            //   handle();
-                            // }}
+                          
                           >
                             {" - "}
                           </Button>
                           {value.quantity}
                           <Button
-                            // onClick={() => {
-                            //   axios.put(
-                            //     `http://localhost:8080/cart/${value.id}`,
-                            //     {
-                            //       id: qty[value.id],
-                            //       quantity: qty[value.id] + 1,
-                            //     }
-                            //   );
-
-                            //   let temp = qty[value.id];
-                            //   temp += 1;
-                            //   setQty((prev) => ({ ...prev, [value.id]: temp }));
-                            //   const it = JSON.parse(
-                            //     localStorage.getItem("cart")
-                            //   );
-                            //   it[value.id] += 1;
-                            //   localStorage.setItem("cart", JSON.stringify(it));
-                            //   handle();
-                            //   setQty((prev) => ({
-                            //     [value.id]: qty[value.id] + 1,
-                            //     ...prev,
-                            //   }));
-                            // }}
+                           
                             onClick={() => {
                               mutateFunction({
                                 variables: {

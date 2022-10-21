@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import { pink } from "@mui/material/colors";
@@ -8,9 +8,8 @@ import { Observable } from "windowed-observable";
 import { navigateToUrl } from "single-spa";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import { useQuery, gql, useMutation } from "@apollo/client";
-
-
+import { useQuery, gql, useMutation , useLazyQuery} from "@apollo/client";
+import authClient from "./sdk/api";
 
 const GET_CART_ITEMS = gql`
   query ($userID: String!) {
@@ -29,21 +28,42 @@ const GET_CART_ITEMS = gql`
   }
 `;
 const Container = () => {
-  const { loading, error, data } = useQuery(GET_CART_ITEMS, {
-    variables: { userID: "user1" },
-  });
+  const [notification,{ loading, error, data } ]= useLazyQuery(GET_CART_ITEMS);
 
-  let badge_data = 0;
+  const [notificationData, setnotificationData] = useState()
 
+  // let badge_data = 0;
 
-  if(data)
-  {
-    console.log("data is ", data.CartItems.length);
-    badge_data = data.CartItems.length;
+  // if (data) {
+  //   console.log("data is ", data.CartItems.length);
+  //   badge_data = data.CartItems.length;
 
-  }
+  // }
 
-  console.log("Badge data : ", badge_data);
+  const handleSignIn = () => {
+    // this.clearSession();
+
+    let state = authClient.generateRandomValue();
+    let nonce = authClient.generateRandomValue();
+    // Store state and nonce parameters into the session, so we can retrieve them after
+    // user will be redirected back with access token or code (since react state is cleared in this case)
+    sessionStorage.setItem("state", state);
+    sessionStorage.setItem("nonce", nonce);
+
+    authClient.authorize(state, nonce);
+  };
+  useEffect(() => {
+    console.log("Inside the container");
+    if(localStorage.getItem("userId"))
+    {
+notification({variables : {userID :localStorage.getItem("userId") }}).then(res => {setnotificationData(res.data.CartItems.length)});
+    }
+   }, []);
+    
+ 
+    
+   
+  
 
   // const [notification, setNotification] = useState(
   //   localStorage.getItem("cart") == null
@@ -101,7 +121,7 @@ const Container = () => {
             <CalendarTodayIcon sx={{ color: "white" }} />
           </a>
 
-          <Badge badgeContent={badge_data} color="primary">
+          <Badge badgeContent={notificationData} color="primary">
             <a
               href={`/cart`}
               onClick={navigateToUrl}
@@ -113,7 +133,9 @@ const Container = () => {
               <ShoppingCartIcon sx={{ color: "white" }} />
             </a>
           </Badge>
-          <Avatar sx={{ bgcolor: "#03abab" }}>A</Avatar>
+          <Avatar onClick={handleSignIn} sx={{ bgcolor: "#03abab" }}>
+            A
+          </Avatar>
         </Box>
       </Box>
     </Box>

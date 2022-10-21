@@ -3,6 +3,8 @@ import { Box, Grid, Typography, Button, Rating } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import axios from "axios";
 import { Observable } from "windowed-observable";
+import authClient from "./sdk/api";
+
 // import StarRateIcon from '@mui/icons-material/StarRate';
 import { gql, useQuery, useMutation } from "@apollo/client";
 const PROD_DATA = gql`
@@ -48,8 +50,26 @@ const UPDATRE_CART_ITEMS = gql`
 `;
 
 function App() {
+
+
+  const [userId, setuserId] = useState(localStorage.getItem("userId"))
   let id = window.location.pathname.split("/")[2];
   console.log("Id is ...", id);
+
+
+  const handleSignIn = () => {
+    // this.clearSession();
+
+    let state = authClient.generateRandomValue();
+    let nonce = authClient.generateRandomValue();
+    // Store state and nonce parameters into the session, so we can retrieve them after
+    // user will be redirected back with access token or code (since react state is cleared in this case)
+    sessionStorage.setItem("state", state);
+    sessionStorage.setItem("nonce", nonce);
+
+    authClient.authorize(state, nonce);
+  };
+ 
 
   const [addCart, addcart] = useMutation(ADD_TO_CART);
 
@@ -60,7 +80,7 @@ function App() {
   });
 
   const response = useQuery(GET_CART_ITEMS, {
-    variables: { userID: "user1" },
+    variables: { userID: userId },
   });
   if (response.data) {
     console.log("User cart data is : ", response.data.CartItems);
@@ -71,6 +91,15 @@ function App() {
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZdmJ9_hr5UUsGC5__u0btapjLcoYROBYCvWVTwqu8LiMX1K-pg6Z8Wg4m8ryEs9s9Z3k&usqp=CAU";
 
   const addToCart = () => {
+
+    let userId = localStorage.getItem("userId")
+    if(!userId)
+    {
+      handleSignIn();
+    }
+    else
+     {
+
     let cartItem = response.data.CartItems.filter(
       (prod) => prod.product.id == id
     );
@@ -88,7 +117,7 @@ function App() {
       addCart({
         variables: {
           request: {
-            userID: "user1",
+            userID: userId,
             productID: id,
             quantity: 1,
           },
@@ -96,6 +125,7 @@ function App() {
       }).then(res => {
          window.location.reload()})
     }
+  }
   };
   // const addToCart = async () => {
   //   const id = prod.id;
@@ -143,6 +173,12 @@ function App() {
   // };
 
   console.log("Path : ", window.location.pathname);
+
+
+  if (loading) return 'Loading...';
+
+  if (error) return `Error! ${error.message}`;
+
   return (
     <div>
       {data && (

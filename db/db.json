@@ -93,6 +93,12 @@
       "productID": "1",
       "quantity": 2,
       "id": 2
+    },
+    {
+      "userID": "inigoraj.vincent@zemosolabs.com",
+      "productID": "3",
+      "quantity": 2,
+      "id": 3
     }
   ],
   "events": [

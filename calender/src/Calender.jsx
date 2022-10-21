@@ -7,7 +7,9 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import TransitionsModal from "./components/TransitionsModal";
 import EditModal from "./components/EditModel";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import authClient from "./sdk/api";
+
 import "./calender.css";
 // const events1 = [
 //   {
@@ -24,40 +26,81 @@ import "./calender.css";
 //   },
 // ];
 
-const Calender = () => {
-  const [events, setevents] = useState([]);
-  const [userid, setuserid] = useState("user1");
-  const [iseditEvent, setiseditEvent] = useState(false);
-  const [currentEvent, setcurrentEvent] = useState({});
-  const [isEventModal, setisEventModal] = useState(false);
-  const [eventId, seteventId] = useState();
-  
 
-const { error, loading, data } = useQuery(gql`
-  query {
-  CalenderEvent(userID: "user1") {
+const GET_CALENDER_DATA = gql`
+  query  CalenderEvent($userID: ID!) {
+  CalenderEvent(userID: $userID) {
     id
     title
     start
     end
   }
 }
-`);
+`;
 
-if (data) {
-  console.log("Events are ", data.CalenderEvent);
-  // setevents(data.CalenderEvent);
+const Calender = () => {
+  const [events, setevents] = useState([]);
+  const [userid, setuserid] = useState(localStorage.getItem("userId"));
+  const [iseditEvent, setiseditEvent] = useState(false);
+  const [currentEvent, setcurrentEvent] = useState({});
+  const [isEventModal, setisEventModal] = useState(false);
+  const [eventId, seteventId] = useState();
+
+  const [calenderData, setcalenderData] = useState()
+
+
+  const [getCalenderEvents, { loading, error, data }] = useLazyQuery(GET_CALENDER_DATA);
+
+
+  const handleSignIn = () => {
+    // this.clearSession();
+
+    let state = authClient.generateRandomValue();
+    let nonce = authClient.generateRandomValue();
+    // Store state and nonce parameters into the session, so we can retrieve them after
+    // user will be redirected back with access token or code (since react state is cleared in this case)
+    sessionStorage.setItem("state", state);
+    sessionStorage.setItem("nonce", nonce);
+
+    authClient.authorize(state, nonce);
+  };
+
+
+useEffect(() => {
+  const hashes = authClient.parseHash();
+  console.log("hashes ;", hashes.access_token);
+  if(hashes.access_token == undefined && localStorage.getItem("userId"))
+  {
+    getCalenderEvents({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcalenderData(res.data)})
+
+  }
+  else if(hashes.access_token == undefined && !localStorage.getItem("userId")) {
+    handleSignIn()
+
+  }
+
+else if (hashes)
+{
+  console.log("Inside the hashes");
+  authClient.getUserInfo(hashes.access_token).then((res) => {
+      console.log("Res in calender : ", res);
+      localStorage.setItem("userId", res.email);  
+
+    }).then(res => {
+      getCalenderEvents({variables : {userID : localStorage.getItem("userId")}}).then(res=>{ setcalenderData(res.data)})
+
+    })
 }
+ 
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:8080/events?userID=${userid}`)
-  //     .then((res) => {
-  //       setevents(res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-  // console.log(data)
+
+
+}, [])
+
+
+
+
+
 
   const [isModelOpen, setisModelOpen] = useState(false);
   const [date, setdate] = useState("date");
@@ -83,9 +126,11 @@ if (data) {
       .catch((err) => console.log(err));
   };
 
+
+
   return (
     <div className="App">
-      {!iseditEvent&&data && (
+      {!iseditEvent && calenderData && (
         <TransitionsModal
           isModelOpen={isModelOpen}
           setisModelOpen={setisModelOpen}
@@ -112,7 +157,7 @@ if (data) {
         userID={userid}
       />
       <Box sx={{ marginTop: "70px" }}>
-        {data&&<FullCalendar
+        { calenderData && <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -124,7 +169,7 @@ if (data) {
               click: () => console.log("new event"),
             },
           }}
-          events={data.CalenderEvent}
+          events={calenderData.CalenderEvent}
           eventColor="#f20a7e"
           nowIndicator
           dateClick={dateClick}
