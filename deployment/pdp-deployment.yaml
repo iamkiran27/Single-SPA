@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-pdp-service
-          image: gcr.io/deploy-project-id-1/pdp:latest
+          image: gcr.io/deploy-project-id-1/pdp:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 9003

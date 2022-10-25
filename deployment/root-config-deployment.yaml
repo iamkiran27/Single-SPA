@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-root-config-service
-          image: gcr.io/deploy-project-id-1/root-config:latest
+          image: gcr.io/deploy-project-id-1/root-config:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
