@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-home
-          image: ghcr.io/sreenidhize/home:123
+          image: gcr.io/deploy-project-id-1/home:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9002
