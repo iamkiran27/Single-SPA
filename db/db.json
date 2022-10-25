@@ -83,84 +83,38 @@
   ],
   "cart": [
     {
-      "userID": "user1",
-      "productID": "3",
-      "quantity": 3,
-      "id": 1
-    },
-    {
-      "userID": "user1",
+      "userID": "react_tester",
       "productID": "1",
-      "quantity": 2,
+      "quantity": 3,
       "id": 2
-    },
-    {
-      "userID": "inigoraj.vincent@zemosolabs.com",
-      "productID": "3",
-      "quantity": 5,
-      "id": 3
-    },
-    {
-      "userID": "inigoraj.vincent@zemosolabs.com",
-      "productID": "2",
-      "quantity": 1,
-      "id": 4
     },
     {
       "userID": "ping_react",
       "productID": "2",
       "quantity": 1,
-      "id": 5
+      "id": 3
     },
     {
       "userID": "react_tester",
-      "productID": "2",
-      "quantity": 1,
-      "id": 6
+      "productID": "10",
+      "quantity": 2,
+      "id": 4
     }
   ],
   "events": [
     {
-      "id": 1665727236705,
-      "title": "Team demo",
-      "userID": "user1",
-      "start": "2022-10-17T18:01:56",
-      "end": "2022-10-17T06:51:56"
-    },
-    {
-      "id": 1665727309659,
-      "title": "Diwali sale",
-      "userID": "user2",
-      "start": "2022-10-14T17:04:00",
-      "end": "2022-10-14T21:46:00"
-    },
-    {
-      "userID": "user1",
-      "title": "Dry Run Meeting",
-      "start": "2022-10-17T16:30:00",
-      "end": "2022-10-17T17:00:00",
-      "id": 1665727309660
-    },
-    {
-      "userID": "inigoraj.vincent@zemosolabs.com",
-      "title": "eve01",
-      "start": "2022-10-13T16:33:42",
-      "end": "2022-10-13T16:33:42",
-      "id": 1665727309661
-    },
-    {
-      "userID": "inigoraj.vincent@zemosolabs.com",
-      "title": "event 3",
-      "start": "2022-10-05T16:41:36",
-      "end": "2022-10-05T16:41:36",
-      "id": 1665727309662
+      "userID": "react_tester",
+      "title": "Event  1",
+      "start": "2022-10-25T10:28:25",
+      "end": "2022-10-25T11:28:25",
+      "id": 1
     },
     {
       "userID": "ping_react",
-      "title": "MM",
-      "start": "2022-10-21T17:57:20",
-      "end": "2022-10-21T17:57:20",
-      "id": 1665727309663
+      "title": "Event 2",
+      "start": "2022-10-26T12:00:33",
+      "end": "2022-10-26T13:00:33",
+      "id": 2
     }
   ]
 }
