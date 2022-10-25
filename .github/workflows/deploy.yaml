@@ -3,8 +3,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - micro-app-deployment
- 
+      - pingid-dep
 jobs:
  Build:
    name: Build, Publish
