@@ -11,7 +11,7 @@ jobs:
  
    strategy:
      matrix:
-       service: [calender, cart, container, home, pdp, root-config]
+       service: [root-config]
  
    defaults:
      run:
