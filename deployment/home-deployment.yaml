@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-home
-          image: gcr.io/deploy-project-id-1/home:v1
+          image: gcr.io/deploy-project-id-1/home:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9002

@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 9000
 
-CMD ["npm","run", "start:standalone"]
+CMD ["npm","run"]
