@@ -111,7 +111,7 @@ export default function EditModal({
       end: `${curdate}T${edtime}`,
     };
 
-    // axios.put(`http://localhost:8080/events/${eveid}`, updatedevent);
+    // axios.put(`http://34.123.211.211:8080/events/${eveid}`, updatedevent);
     editNewEvent({
       variables: {
         "request": {
@@ -136,7 +136,7 @@ export default function EditModal({
 
   const deleteEvent = () => {
     const eveid = currentEvent.id;
-    // axios.delete(`http://localhost:8080/events/${eveid}`);
+    // axios.delete(`http://34.123.211.211:8080/events/${eveid}`);
     deleteSelectedEvent({
       variables: {
         "eventId": `${eveid}`

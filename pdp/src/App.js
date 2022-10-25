@@ -131,11 +131,11 @@ function App() {
   // const addToCart = async () => {
   //   const id = prod.id;
   //   axios
-  //     .get(`http://localhost:8080/cart/${prod.id}`)
+  //     .get(`http://34.123.211.211:8080/cart/${prod.id}`)
   //     .then(async (res) => {
   //       const updatedQuantity = res.data.quantity + 1;
   //       await axios
-  //         .put(`http://localhost:8080/cart/${prod.id}`, {
+  //         .put(`http://34.123.211.211:8080/cart/${prod.id}`, {
   //           id: id,
   //           quantity: updatedQuantity,
   //         })
@@ -153,7 +153,7 @@ function App() {
   //     })
   //     .catch(async (err) => {
   //       await axios
-  //         .post(`http://localhost:8080/cart`, {
+  //         .post(`http://34.123.211.211:8080/cart`, {
   //           id: id,
   //           quantity: 1,
   //         })

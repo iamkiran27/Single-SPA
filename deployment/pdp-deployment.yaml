@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-pdp-service
+  labels:
+    app: singlespa-pdp
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-pdp
+    
+  template:
+    metadata:
+      name: singlespa-pdp
+      labels:
+        app: singlespa-pdp
+    spec:
+      containers:
+        - name: singlespa-pdp-service
+          image: ghcr.io/sreenidhize/pdp:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9003
+      imagePullSecrets: 
+        - name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-pdp-service
+  labels:
+    app: singlespa-pdp
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9003
+      protocol: TCP
+  selector:
+    app: singlespa-pdp

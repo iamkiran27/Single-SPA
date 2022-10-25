@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: singlespa-container
+  labels:
+    app: singlespa-con
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: singlespa-con
+    
+  template:
+    metadata:
+      name: singlespa-con
+      labels:
+        app: singlespa-con
+    spec:
+      containers:
+        - name: singlespa-container
+          image: ghcr.io/sreenidhize/container:v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9001
+      imagePullSecrets: 
+        - name: mysecret
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: singlespa-container
+  labels:
+    app: singlespa-con
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9001
+      protocol: TCP
+  selector:
+    app: singlespa-con
