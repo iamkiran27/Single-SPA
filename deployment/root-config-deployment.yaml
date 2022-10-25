@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: singlespa-root-config-service
-          image: ghcr.io/sreenidhize/root-config:latest
+          image: gcr.io/deploy-project-id-1/root-config:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
       imagePullSecrets: 
-        - name: mysecret
+        - name: gcr-srecret
 
 ---
 apiVersion: v1

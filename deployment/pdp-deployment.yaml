@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: singlespa-pdp-service
-          image: gcr.io/deploy-project-id-1/pdp:123
+          image: gcr.io/deploy-project-id-1/pdp:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 9003
       imagePullSecrets: 
-        - name: mysecret
+        - name: gcr-srecret
 
 ---
 apiVersion: v1

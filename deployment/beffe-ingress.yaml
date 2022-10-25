@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: beffe.rancherpractice.tk	
+  - host: test.rancherpractice.tk
     http:
       paths:
       - path: /
