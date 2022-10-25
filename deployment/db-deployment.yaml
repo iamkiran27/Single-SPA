@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-json
-          image: ghcr.io/sreenidhize/json:t1
+          image: ghcr.io/sreenidhize/db:123
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

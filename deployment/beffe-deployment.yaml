@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-beffe-service
-          image: ghcr.io/sreenidhize/beffe:t1
+          image: ghcr.io/sreenidhize/beffe:123
           imagePullPolicy: Always
           ports:
             - containerPort: 4000

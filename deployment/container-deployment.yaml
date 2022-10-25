@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-container
-          image: ghcr.io/sreenidhize/container:v1
+          image: ghcr.io/sreenidhize/container:123
           imagePullPolicy: Always
           ports:
             - containerPort: 9001

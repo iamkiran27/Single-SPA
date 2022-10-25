@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-cart-service
-          image: gcr.io/deploy-project-id-1/cart:latest
+          image: gcr.io/deploy-project-id-1/cart:123
           imagePullPolicy: Always
           ports:
             - containerPort: 9004

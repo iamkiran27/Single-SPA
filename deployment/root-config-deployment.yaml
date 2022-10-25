@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: singlespa-root-config-service
-          image: ghcr.io/sreenidhize/rootconfig:v2
+          image: ghcr.io/sreenidhize/root-config:123
           imagePullPolicy: Always
           ports:
             - containerPort: 9000
