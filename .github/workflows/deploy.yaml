@@ -30,11 +30,11 @@ jobs:
        gcloud --quiet auth configure-docker
    - name: Build
      run: |-
-       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest .
+       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:v1 .
        
    - name: Publish
      run: |-
-       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:latest"
+       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:v1"
  
 #  deploy:
 #     name: deploy to gke
