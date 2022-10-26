@@ -131,11 +131,11 @@ function App() {
   // const addToCart = async () => {
   //   const id = prod.id;
   //   axios
-  //     .get(`http://34.123.211.211:8080/cart/${prod.id}`)
+  //     .get(`https://mock.microapp.tk/cart/${prod.id}`)
   //     .then(async (res) => {
   //       const updatedQuantity = res.data.quantity + 1;
   //       await axios
-  //         .put(`http://34.123.211.211:8080/cart/${prod.id}`, {
+  //         .put(`https://mock.microapp.tk/cart/${prod.id}`, {
   //           id: id,
   //           quantity: updatedQuantity,
   //         })
@@ -153,7 +153,7 @@ function App() {
   //     })
   //     .catch(async (err) => {
   //       await axios
-  //         .post(`http://34.123.211.211:8080/cart`, {
+  //         .post(`https://mock.microapp.tk/cart`, {
   //           id: id,
   //           quantity: 1,
   //         })

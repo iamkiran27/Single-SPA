@@ -11,7 +11,7 @@ jobs:
  
    strategy:
      matrix:
-       service: [root-config]
+       service: [root-config , calender , cart , container , pdp , home , beffe]
  
    defaults:
      run:
@@ -30,11 +30,11 @@ jobs:
        gcloud --quiet auth configure-docker
    - name: Build
      run: |-
-       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:v1 .
+       docker build --tag gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:${{ github.sha }} .
        
    - name: Publish
      run: |-
-       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:v1"
+       docker push "gcr.io/${{ secrets.GKE_PROJECT }}/${{ matrix.service }}:${{ github.sha }}"
  
 #  deploy:
 #     name: deploy to gke

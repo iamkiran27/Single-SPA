@@ -19,7 +19,7 @@ const errorLink = onError(({ graphqlErrors, networkError }) => {
 
 const link = from([
   errorLink,
-  new HttpLink({ uri: "https://test.rancherpractice.tk/" }),
+  new HttpLink({ uri: "https://befe.microapp.tk/" }),
 ]);
 
 const client = new ApolloClient({

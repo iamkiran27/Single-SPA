@@ -121,7 +121,7 @@ else if (hashes)
     setiseditEvent(true);
 
     axios
-      .get(`http://34.123.211.211:8080/events/${e.event.id}`)
+      .get(`https://mock.microapp.tk/events/${e.event.id}`)
       .then((res) => {
         setcurrentEvent({ ...res.data });
         console.log("Current event is : ", res.data);

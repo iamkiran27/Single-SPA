@@ -1,3 +1,3 @@
 export const properties = {
-    DB_URL: "http://34.123.211.211:8080"
+    DB_URL: "https://mock.microapp.tk"
 }

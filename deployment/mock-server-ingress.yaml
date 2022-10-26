@@ -1,21 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: beffe-ingress
+  name: mock-ingress
   labels:
-    name:  beffee
+    name:  mock
   annotations:
     ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-  - host: befe.microapp.tk	
+  - host: mock.microapp.tk
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service: 
-            name: singlespa-beffe-service
+            name: singlespa-json
             port:
-              number: 4000
+              number: 8080

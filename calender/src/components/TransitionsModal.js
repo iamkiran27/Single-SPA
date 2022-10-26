@@ -93,7 +93,7 @@ export default function BasicModal({
 
     console.log("Event  : ", newevent);
 
-    // axios.post(`http://34.123.211.211:8080/events`, newevent);
+    // axios.post(`https://mock.microapp.tk/events`, newevent);
     addNewEvent({
       variables: {
         "createCalenderEventRequest2": newevent,

@@ -1,0 +1,58 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: root-config-ingress
+  labels:
+    name: root-config
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: mock.rancherpractice.tk	
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-root-config-service
+            port:
+              number: 9000
+      - path: /pdp
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-pdp-service
+            port:
+              number: 9003
+      - path: /calender
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-calender-service
+            port:
+              number: 9006
+      - path: /cart
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-cart-service
+            port:
+              number: 9004
+      - path: /container
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-container
+            port:
+              number: 9001
+      - path: /home
+        pathType: Prefix
+        backend:
+          service: 
+            name: singlespa-home
+            port:
+              number: 9002
+
+      
