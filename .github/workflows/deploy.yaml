@@ -61,14 +61,14 @@ jobs:
     - name: Deploy
       run: |-
         cd deployment
-        kubectl set image deployment/singlespa-root-config-service singlespa-root-config-service=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/root-config:${{ github.sha }}
-        kubectl set image deployment/singlespa-pdp-service singlespa-pdp-service=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/pdp:${{ github.sha }}
-        kubectl set image deployment/singlespa-json singlespa-json=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/db:${{ github.sha }}
-        kubectl set image deployment/singlespa-home singlespa-home=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/home:${{ github.sha }}
-        kubectl set image deployment/singlespa-container singlespa-container=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/container:${{ github.sha }}
-        kubectl set image deployment/singlespa-calender-service singlespa-calender-service=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/calender:${{ github.sha }}
-        kubectl set image deployment/singlespa-beffe-service singlespa-beffe-service=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/beffe:${{ github.sha }}
-        kubectl set image deployment/singlespa-cart-service singlespa-cart-service=${{ secrets.PACKAGE_URL }}/${{ secrets.REGISTRY_USERNAME }}/cart:${{ github.sha }}
+        kubectl set image deployment/singlespa-root-config-service singlespa-root-config-service=gcr.io/${{ secrets.GKE_PROJECT }}/root-config:${{ github.sha }}
+        kubectl set image deployment/singlespa-pdp-service singlespa-pdp-service=gcr.io/${{ secrets.GKE_PROJECT }}/pdp:${{ github.sha }}
+        kubectl set image deployment/singlespa-json singlespa-json=gcr.io/${{ secrets.GKE_PROJECT }}/db:${{ github.sha }}
+        kubectl set image deployment/singlespa-home singlespa-home=gcr.io/${{ secrets.GKE_PROJECT }}/home:${{ github.sha }}
+        kubectl set image deployment/singlespa-container singlespa-container=gcr.io/${{ secrets.GKE_PROJECT }}/container:${{ github.sha }}
+        kubectl set image deployment/singlespa-calender-service singlespa-calender-service=gcr.io/${{ secrets.GKE_PROJECT }}/calender:${{ github.sha }}
+        kubectl set image deployment/singlespa-beffe-service singlespa-beffe-service=gcr.io/${{ secrets.GKE_PROJECT }}/beffe:${{ github.sha }}
+        kubectl set image deployment/singlespa-cart-service singlespa-cart-service=gcr.io/${{ secrets.GKE_PROJECT }}/cart:${{ github.sha }}
 
 
 
