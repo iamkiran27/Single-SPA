@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: mock-ingress
   labels:
-    name:  mock
+    name: mock
   annotations:
     ingress.kubernetes.io/rewrite-target: /
 spec:

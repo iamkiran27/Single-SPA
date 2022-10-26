@@ -24,7 +24,7 @@ spec:
             - containerPort: 4000
           env:
           - name: DB_URL
-            value: https://mock.microapp.tk/
+            value: https://mock.microapp.tk
       imagePullSecrets: 
         - name: gcr-srecret
 
