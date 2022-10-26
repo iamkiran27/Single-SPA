@@ -1,0 +1,10 @@
+{
+    "imports": {
+      "@spa/root-config": "https://root-config.microapp.tk/spa-root-config.js",
+      "@spa/container": "https://root-config.microapp.tk/container/spa-container.js",
+      "@spa/home": "https://root-config.microapp.tk/home/spa-home.js",
+      "@spa/pdp": "https://root-config.microapp.tk/pdp/spa-pdp.js",
+      "@spa/cart": "https://root-config.microapp.tk/cart/spa-cart.js",
+      "@spa/calender": "https://root-config.microapp.tk/calender/spa-calender.js"
+    }
+  }
